@@ -318,3 +318,38 @@ pub fn build_for_release(name: &str) {
         .wait_with_output()
         .expect("Should wait until the build is over");
 }
+
+pub fn init_git(dir: &PathBuf) {
+    // Initialize a new git repository
+    std::process::Command::new("git")
+        .arg("init")
+        .current_dir(dir)
+        .status()
+        .expect("Git project could not be initialized");
+
+    // Rename the default branch to 'main'
+    std::process::Command::new("git")
+        .arg("branch")
+        .arg("-M")
+        .arg("main")
+        .current_dir(dir)
+        .status()
+        .expect("Default branch could not be renamed to main");
+
+    // Add all files to the staging area
+    std::process::Command::new("git")
+        .arg("add")
+        .arg(".")
+        .current_dir(dir)
+        .status()
+        .expect("Initial files could not be added to the staging area");
+
+    // Commit the changes
+    std::process::Command::new("git")
+        .arg("commit")
+        .arg("-m")
+        .arg("initial commit")
+        .current_dir(dir)
+        .status()
+        .expect("Initial commit could not be performed");
+}

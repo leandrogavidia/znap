@@ -17,6 +17,7 @@ use syn::{
     parse::{Parse, ParseStream, Result as ParseResult},
     Ident, ItemFn, ItemMod, ItemStruct,
 };
+use quote::quote;
 
 #[derive(Debug)]
 pub struct CollectionMod {
@@ -114,6 +115,16 @@ pub struct ActionLinkParameterStruct {
     name: String,
     #[deluxe(default = false)]
     required: bool,
+    #[deluxe(default = "text".to_string())]
+    r#type: String,
+    #[deluxe(default = Vec::new())]
+    options: Vec<ActionLinkParameterTypeOption>
+}
+
+#[derive(Debug, ParseMetaItem)] 
+pub struct ActionLinkParameterTypeOption {
+    label: String,
+    value: String,
 }
 
 #[derive(Debug, ExtractAttributes)]

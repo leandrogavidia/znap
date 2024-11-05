@@ -171,12 +171,27 @@ pub struct LinkedAction {
     pub parameters: Vec<LinkedActionParameter>,
 }
 
+// #[derive(Debug, Deserialize, Serialize, PartialEq)]
+// enum ActionLinkParameterType {
+//     Text,
+//     Email,
+//     Url,
+//     Number,
+//     Date,
+//     Datetimelocal,
+//     Checkbox,
+//     Radio,
+//     Textarea,
+//     Select,
+//   } 
+
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct LinkedActionParameter {
     pub label: String,
     pub name: String,
     pub required: bool,
-    pub r#type: String,
+    #[serde(rename = "type")]
+    pub input_type: String,
     pub options: Vec<LinkedActionLinkParameterTypeOption>
 }
 
@@ -345,13 +360,13 @@ where
         .map(|parameter| {
             let name = render_source(&parameter.name, &data);
             let label = render_source(&parameter.label, &data);
-            let r#type = render_source(&parameter.r#type, &data);
+            let input_type = render_source(&parameter.input_type, &data);
 
             LinkedActionParameter {
                 label, 
                 name,
                 required: parameter.required,
-                r#type,
+                input_type,
                 options: render_options(&parameter.options, &data)
             }
         })

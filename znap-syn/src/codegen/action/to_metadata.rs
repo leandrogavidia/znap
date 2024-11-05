@@ -30,7 +30,7 @@ fn generate_parameter(parameters: &[ActionLinkParameterStruct]) -> TokenStream {
             let label = &p.label;
             let name = &p.name;
             let required = p.required;
-            let r#type = &p.r#type;
+            let input_type = &p.input_type;
             let options = generate_parameter_options(&p.options);
  
             quote! {
@@ -38,7 +38,7 @@ fn generate_parameter(parameters: &[ActionLinkParameterStruct]) -> TokenStream {
                     label: #label.to_string(),
                     name: #name.to_string(),
                     required: #required,
-                    r#type: #r#type.to_string(),
+                    input_type: #input_type.to_string(),
                     options: #options
                 }
             }

@@ -117,10 +117,10 @@ pub struct ActionLinkParameterStruct {
     #[deluxe(rename = type, default = "text".to_string())]
     input_type: String,
     #[deluxe(append, rename = option, default = Vec::new())]
-    options: Vec<ActionLinkParameterTypeOption>
+    options: Vec<ActionLinkParameterTypeOption>,
 }
 
-#[derive(Debug, ParseMetaItem)] 
+#[derive(Debug, ParseMetaItem)]
 pub struct ActionLinkParameterTypeOption {
     label: String,
     value: String,

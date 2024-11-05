@@ -98,7 +98,8 @@ pub mod prelude {
     pub use super::env::Env;
     pub use super::{
         Action, ActionLinks, ActionMetadata, ActionResponse, ActionTransaction, Error, ErrorCode,
-        LinkedAction, LinkedActionParameter, Result, ToMetadata, LinkedActionLinkParameterTypeOption
+        LinkedAction, LinkedActionLinkParameterTypeOption, LinkedActionParameter, Result,
+        ToMetadata,
     };
     pub use base64;
     pub use bincode;
@@ -183,7 +184,7 @@ pub struct LinkedAction {
 //     Radio,
 //     Textarea,
 //     Select,
-//   } 
+//   }
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct LinkedActionParameter {
@@ -192,10 +193,10 @@ pub struct LinkedActionParameter {
     pub required: bool,
     #[serde(rename = "type")]
     pub input_type: String,
-    pub options: Vec<LinkedActionLinkParameterTypeOption>
+    pub options: Vec<LinkedActionLinkParameterTypeOption>,
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)] 
+#[derive(Debug, Deserialize, Serialize, PartialEq)]
 pub struct LinkedActionLinkParameterTypeOption {
     pub label: String,
     pub value: String,
@@ -339,14 +340,10 @@ where
             let label = render_source(&option.label, &data);
             let value = render_source(&option.value, &data);
 
-            LinkedActionLinkParameterTypeOption {
-                label,
-                value
-            }
+            LinkedActionLinkParameterTypeOption { label, value }
         })
         .collect()
 }
-
 
 pub fn render_parameters<T>(
     parameters: &[LinkedActionParameter],
@@ -363,11 +360,11 @@ where
             let input_type = render_source(&parameter.input_type, &data);
 
             LinkedActionParameter {
-                label, 
+                label,
                 name,
                 required: parameter.required,
                 input_type,
-                options: render_options(&parameter.options, &data)
+                options: render_options(&parameter.options, &data),
             }
         })
         .collect()

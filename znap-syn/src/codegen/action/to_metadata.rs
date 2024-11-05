@@ -1,4 +1,7 @@
-use crate::{ActionAttributesStruct, ActionLinkParameterStruct, ActionLinkStruct, ActionStruct, ActionLinkParameterTypeOption};
+use crate::{
+    ActionAttributesStruct, ActionLinkParameterStruct, ActionLinkParameterTypeOption,
+    ActionLinkStruct, ActionStruct,
+};
 use proc_macro2::TokenStream;
 use quote::quote;
 
@@ -32,7 +35,7 @@ fn generate_parameter(parameters: &[ActionLinkParameterStruct]) -> TokenStream {
             let required = p.required;
             let input_type = &p.input_type;
             let options = generate_parameter_options(&p.options);
- 
+
             quote! {
                 LinkedActionParameter {
                     label: #label.to_string(),
